@@ -1,0 +1,14 @@
+<launch>
+    <!-- Node Python đọc cả 2 cảm biến (id = 1,2) -->
+    <node name="vl53_display_node" pkg="tof_reader" type="test.py" output="screen">
+        <param name="rows" value="8" />
+        <param name="cols" value="8" />
+        <param name="hfov" value="45.0" />
+        <param name="vfov" value="45.0" />
+        <param name="port" value="/dev/ttyS1" />
+        <param name="baud" value="115200" />
+    </node>
+
+    <!-- Mở RViz tự động -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tof_reader)/rviz/rviz_config.rviz" />
+</launch>
