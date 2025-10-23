@@ -5,8 +5,8 @@
         <param name="cols" value="8" />
         <param name="hfov" value="45.0" />
         <param name="vfov" value="45.0" />
-        <param name="port" value="/dev/ttyS1" />
-        <param name="baud" value="115200" />
+        <param name="SERIAL_PORT" value="/dev/ttyS1" />
+        <param name="BAUDRATE" value="57600" />
     </node>
 
     <!-- Mở RViz tự động -->
