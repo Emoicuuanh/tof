@@ -67,14 +67,14 @@ set(tof_reader_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(tof_reader_SOURCE_PREFIX /home/dung/ros_ws/src/tof_reader)
-  set(tof_reader_DEVEL_PREFIX /home/dung/ros_ws/devel)
+  set(tof_reader_SOURCE_PREFIX /home/dung/Desktop/ros_ws/src/tof_reader)
+  set(tof_reader_DEVEL_PREFIX /home/dung/Desktop/ros_ws/devel)
   set(tof_reader_INSTALL_PREFIX "")
   set(tof_reader_PREFIX ${tof_reader_DEVEL_PREFIX})
 else()
   set(tof_reader_SOURCE_PREFIX "")
   set(tof_reader_DEVEL_PREFIX "")
-  set(tof_reader_INSTALL_PREFIX /home/dung/ros_ws/install)
+  set(tof_reader_INSTALL_PREFIX /home/dung/Desktop/ros_ws/install)
   set(tof_reader_PREFIX ${tof_reader_INSTALL_PREFIX})
 endif()
 
@@ -156,7 +156,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/dung/ros_ws/install/lib;/opt/ros/noetic/lib)
+    foreach(path /home/dung/Desktop/ros_ws/install/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

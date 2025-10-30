@@ -1,4 +1,4 @@
-prefix=/home/dung/ros_ws/devel
+prefix=/home/dung/Desktop/ros_ws/devel
 
 Name: tof_reader
 Description: Description of tof_reader

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/dung/ros_ws/src
+CMAKE_SOURCE_DIR = /home/dung/Desktop/ros_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/dung/ros_ws/build
+CMAKE_BINARY_DIR = /home/dung/Desktop/ros_ws/build
 
 # Utility rule file for _catkin_empty_exported_target.
 
@@ -63,10 +63,10 @@ tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/build: _catkin_empty_exp
 .PHONY : tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/build
 
 tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/clean:
-	cd /home/dung/ros_ws/build/tof_reader && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
+	cd /home/dung/Desktop/ros_ws/build/tof_reader && $(CMAKE_COMMAND) -P CMakeFiles/_catkin_empty_exported_target.dir/cmake_clean.cmake
 .PHONY : tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/clean
 
 tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/depend:
-	cd /home/dung/ros_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dung/ros_ws/src /home/dung/ros_ws/src/tof_reader /home/dung/ros_ws/build /home/dung/ros_ws/build/tof_reader /home/dung/ros_ws/build/tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/dung/Desktop/ros_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/dung/Desktop/ros_ws/src /home/dung/Desktop/ros_ws/src/tof_reader /home/dung/Desktop/ros_ws/build /home/dung/Desktop/ros_ws/build/tof_reader /home/dung/Desktop/ros_ws/build/tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : tof_reader/CMakeFiles/_catkin_empty_exported_target.dir/depend
 

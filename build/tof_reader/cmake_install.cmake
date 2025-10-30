@@ -1,8 +1,8 @@
-# Install script for directory: /home/dung/ros_ws/src/tof_reader
+# Install script for directory: /home/dung/Desktop/ros_ws/src/tof_reader
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/dung/ros_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/dung/Desktop/ros_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -38,17 +38,17 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/dung/ros_ws/build/tof_reader/catkin_generated/installspace/tof_reader.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/dung/Desktop/ros_ws/build/tof_reader/catkin_generated/installspace/tof_reader.pc")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tof_reader/cmake" TYPE FILE FILES
-    "/home/dung/ros_ws/build/tof_reader/catkin_generated/installspace/tof_readerConfig.cmake"
-    "/home/dung/ros_ws/build/tof_reader/catkin_generated/installspace/tof_readerConfig-version.cmake"
+    "/home/dung/Desktop/ros_ws/build/tof_reader/catkin_generated/installspace/tof_readerConfig.cmake"
+    "/home/dung/Desktop/ros_ws/build/tof_reader/catkin_generated/installspace/tof_readerConfig-version.cmake"
     )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tof_reader" TYPE FILE FILES "/home/dung/ros_ws/src/tof_reader/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/tof_reader" TYPE FILE FILES "/home/dung/Desktop/ros_ws/src/tof_reader/package.xml")
 endif()
 
