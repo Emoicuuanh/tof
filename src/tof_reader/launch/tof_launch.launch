@@ -5,7 +5,7 @@
         <param name="cols" value="8" />
         <param name="hfov" value="45.0" />
         <param name="vfov" value="45.0" />
-        <param name="SERIAL_PORT" value="/dev/ttyACM2" />
+        <param name="SERIAL_PORT" value="/dev/ttyACM0" />
         <param name="BAUDRATE" value="57600" />
     </node>
 

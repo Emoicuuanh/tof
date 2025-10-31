@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import threading
 import time, csv, rospy, struct, math, datetime, os
 from pymodbus.client.sync import ModbusSerialClient
 from pymodbus.exceptions import ModbusException
@@ -10,7 +9,7 @@ import geometry_msgs.msg
 
 # ================== CẤU HÌNH ==================
 CSV_FILE = os.path.join(os.path.dirname(__file__), "modbus_log.csv")
-SERIAL_PORT = "/dev/ttyACM2"
+SERIAL_PORT = "/dev/ttyACM0"
 BAUDRATE = 115200
 WRITE_ADDRESS = 130
 WRITE_LENGTH = 64
@@ -23,8 +22,7 @@ SLAVE_OFFSETS = {
     2: (0.0, -1.0, 0.0)
 }
 
-# ================== LOCK & CLIENT ==================
-rs485_lock = threading.Lock()
+# ================== KẾT NỐI CLIENT ==================
 client = ModbusSerialClient(
     method='rtu',
     port=SERIAL_PORT,
@@ -32,7 +30,7 @@ client = ModbusSerialClient(
     bytesize=8,
     parity='N',
     stopbits=1,
-    timeout=0.2
+    timeout=0.1
 )
 
 # ====== KHỞI TẠO FILE LOG ======
@@ -51,8 +49,7 @@ def log(slave_id, status, message=""):
 # ====== HÀM ĐỌC MODBUS ======
 def process_FC3(slave_id, start_address, num_registers):
     try:
-        with rs485_lock:  # 🔒 khóa khi truy cập RS485
-            response = client.read_holding_registers(start_address, num_registers, unit=slave_id)
+        response = client.read_holding_registers(start_address, num_registers, unit=slave_id)
         if response.isError():
             msg = f"Error reading registers: {response}"
             print(f"[Slave {slave_id}] ❌ {msg}")
@@ -133,23 +130,9 @@ def broadcast_tf(broadcaster, slave_id):
     t.transform.rotation.w = 1.0
     broadcaster.sendTransform(t)
 
-# ====== THREAD ĐỌC SLAVE ======
-def slave_thread(slave_id, publisher, rate_hz=15):
-    rate = rospy.Rate(rate_hz)
-    while not rospy.is_shutdown():
-        t0 = time.time()
-        registers = process_FC3(slave_id, 65, 64)
-        if registers:
-            print_matrix_8x8(registers, slave_id)
-            cloud = create_pointcloud(slave_id, registers)
-            publisher.publish(cloud)
-        elapsed = time.time() - t0
-        log(slave_id, "INFO", f"Read cycle: {elapsed:.3f}s")
-        rate.sleep()
-
 # ================== MAIN ==================
 if __name__ == "__main__":
-    rospy.init_node("tof_modbus_dual_publisher_thread")
+    rospy.init_node("tof_modbus_dual_publisher_no_thread")
 
     pub1 = rospy.Publisher("/tof_points_1", PointCloud2, queue_size=2)
     pub2 = rospy.Publisher("/tof_points_2", PointCloud2, queue_size=2)
@@ -157,28 +140,28 @@ if __name__ == "__main__":
     br = tf2_ros.TransformBroadcaster()
 
     if client.connect():
-        print(" Connected to Modbus slaves via Serial!")
+        print("✅ Connected to Modbus slaves via Serial!")
 
         # Gửi giá trị khởi tạo
         init_vals = [60] * WRITE_LENGTH
         for sid in SLAVE_IDS:
-            with rs485_lock:
-                client.write_registers(WRITE_ADDRESS, init_vals, unit=sid)
+            client.write_registers(WRITE_ADDRESS, init_vals, unit=sid)
 
-        # Tạo thread đọc từng slave
-        threads = []
-        for sid in SLAVE_IDS:
-            t = threading.Thread(target=slave_thread, args=(sid, publishers[sid]), daemon=True)
-            t.start()
-            threads.append(t)
-
-        # Thread chính chỉ để broadcast TF
-        rate = rospy.Rate(5)
+        rate = rospy.Rate(15)  # tốc độ vòng lặp 10Hz
         while not rospy.is_shutdown():
             for sid in SLAVE_IDS:
                 broadcast_tf(br, sid)
+                time.sleep(0.01)
+                t0 = time.time()
+                registers = process_FC3(sid, 65, 64)
+                if registers:
+                    print_matrix_8x8(registers, sid)
+                    cloud = create_pointcloud(sid, registers)
+                    publishers[sid].publish(cloud)
+                elapsed = time.time() - t0
+                log(sid, "INFO", f"Read cycle: {elapsed:.3f}s")
             rate.sleep()
 
     else:
-        print(" Failed to connect to Modbus slaves via Serial.")
+        print("❌ Failed to connect to Modbus slaves via Serial.")
         log(0, "ERROR", "Failed to connect to Modbus slaves via Serial.")
